@@ -84,7 +84,7 @@ minetest.register_craft({
 minetest.register_craftitem("stimulants:joint", {
 	description = "Joint",
 	inventory_image = "stimulants_cannabis_joint.png",
-	on_use = minetest.item_eat(-2)	-- Removing 1 heart!
+	on_use = minetest.item_eat(-3)	-- Removing 1.5 hearts. Smoking is bad for health!
 }) 
 
 minetest.register_craft({
