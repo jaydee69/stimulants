@@ -58,6 +58,20 @@ minetest.register_craft({
 	recipe = {'stimulants:cannabis'}
 })
 
+-- --------------------------------------------------------------------------------------------------------------------
+-- Smoking Paper
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_craftitem("stimulants:smoking_paper", {
+	description = "Smoking Paper",
+	inventory_image = "stimulants_smoking_paper.png",
+}) 
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'stimulants:smoking_paper 3',
+	recipe = {'default:paper'}
+})
+
 
 -- ********************************************************************************************************************
 -- Misc
