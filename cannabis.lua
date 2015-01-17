@@ -58,6 +58,12 @@ minetest.register_craft({
 	recipe = {'stimulants:cannabis'}
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = 'stimulants:marihuana 1',
+	recipe = {'stimulants:wild_hemp'}
+})
+
 -- --------------------------------------------------------------------------------------------------------------------
 -- Smoking Paper
 -- --------------------------------------------------------------------------------------------------------------------
@@ -143,6 +149,6 @@ minetest.override_item("stimulants:wild_hemp", {drop = {
 	max_items = 1,
 	items = {
 		{items = {'stimulants:seed_cannabis'},rarity = 2},
-		{items = {'stimulants:wild_hemp'}},	-- TODO: As long as there is nothing better to create
+		{items = {'stimulants:wild_hemp'}},
 	}
 }}) 
