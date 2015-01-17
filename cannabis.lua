@@ -72,6 +72,24 @@ minetest.register_craft({
 	recipe = {'default:paper'}
 })
 
+-- --------------------------------------------------------------------------------------------------------------------
+-- Joint
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_craftitem("stimulants:joint", {
+	description = "Joint",
+	inventory_image = "stimulants_cannabis_joint.png",
+	on_use = minetest.item_eat(-2)	-- Removing 1 heart!
+}) 
+
+minetest.register_craft({
+	output = 'stimulants:joint 3',
+	recipe = {
+		{'stimulants:smoking_paper', 'stimulants:smoking_paper', 'stimulants:smoking_paper'},
+		{'stimulants:marihuana', 'stimulants:marihuana', 'stimulants:marihuana'},
+		{'stimulants:smoking_paper', 'stimulants:smoking_paper', 'stimulants:smoking_paper'},
+	}
+})
+
 
 -- ********************************************************************************************************************
 -- Misc
