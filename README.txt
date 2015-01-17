@@ -1,5 +1,5 @@
-===STIMULANTS MOD for MINETEST===
-by JayDee69
+STIMULANTS MOD for MINETEST by JayDee69
+=======================================
 
 Stimulants is a collection of stuff for Minetest (see http://minetest.net/)
 which might be unhealthy in real life. So please, take it with humor!
