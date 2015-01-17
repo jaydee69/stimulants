@@ -1,4 +1,17 @@
 -- ********************************************************************************************************************
+-- Aliases
+-- ********************************************************************************************************************
+minetest.register_alias("wild_hemp", "stimulants:wild_hemp")
+minetest.register_alias("cannabis", "stimulants:cannabis")
+minetest.register_alias("cannabis_seed", "stimulants:seed_cannabis")
+minetest.register_alias("marihuana", "stimulants:marihuana")
+minetest.register_alias("dope", "stimulants:marihuana")
+minetest.register_alias("grass", "stimulants:marihuana")
+minetest.register_alias("smoking_paper", "stimulants:smoking_paper")
+minetest.register_alias("joint", "stimulants:joint")
+
+
+-- ********************************************************************************************************************
 -- Nodes
 -- ********************************************************************************************************************
 -- --------------------------------------------------------------------------------------------------------------------
