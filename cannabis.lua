@@ -9,6 +9,8 @@ minetest.register_alias("dope", "stimulants:marihuana")
 minetest.register_alias("grass", "stimulants:marihuana")
 minetest.register_alias("smoking_paper", "stimulants:smoking_paper")
 minetest.register_alias("joint", "stimulants:joint")
+minetest.register_alias("hash_cookie_paste", "stimulants:hash_cookie_paste")
+minetest.register_alias("hash_cookie", "stimulants:hash_cookie")
 
 
 -- ********************************************************************************************************************
@@ -107,6 +109,36 @@ minetest.register_craft({
 		{'stimulants:marihuana', 'stimulants:marihuana', 'stimulants:marihuana'},
 		{'stimulants:smoking_paper', 'stimulants:smoking_paper', 'stimulants:smoking_paper'},
 	}
+})
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Hash cookies
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_craftitem("stimulants:hash_cookie_paste", {
+	description = "Hash Cookies Paste",
+	inventory_image = "stimulants_cannabis_hash_cookie_paste.png",
+}) 
+
+minetest.register_craft({
+	output = 'stimulants:hash_cookie_paste 1',
+	recipe = {
+		{'farming:flour', 'farming:flour', 'farming:flour'},
+		{'farming:flour', 'stimulants:cannabis', 'farming:flour'},
+		{'farming:flour', 'farming:flour', 'farming:flour'},
+	}
+})
+
+minetest.register_craftitem("stimulants:hash_cookie", {
+	description = "Hash Cookies",
+	inventory_image = "stimulants_cannabis_hash_cookie.png",
+	on_use = minetest.item_eat(1)	-- Healing 0.5 hearts!
+}) 
+
+minetest.register_craft({
+	type = "cooking",
+	recipe = "stimulants:hash_cookie_paste",
+	cooktime = 20,
+	output = "stimulants:hash_cookie 8",
 })
 
 
