@@ -2,6 +2,7 @@
 -- Aliases
 -- ********************************************************************************************************************
 minetest.register_alias("wild_hemp", "stimulants:wild_hemp")
+minetest.register_alias("wild_hemp_male", "stimulants:wild_hemp_male")
 minetest.register_alias("cannabis", "stimulants:cannabis")
 minetest.register_alias("cannabis_seed", "stimulants:seed_cannabis")
 minetest.register_alias("marihuana", "stimulants:marihuana")
@@ -11,19 +12,22 @@ minetest.register_alias("smoking_paper", "stimulants:smoking_paper")
 minetest.register_alias("joint", "stimulants:joint")
 minetest.register_alias("hash_cookie_paste", "stimulants:hash_cookie_paste")
 minetest.register_alias("hash_cookie", "stimulants:hash_cookie")
+minetest.register_alias("plant_tub_unfired", "stimulants:plant_tub_unfired")
+minetest.register_alias("plant_tub_empty", "stimulants:plant_tub_empty")
+minetest.register_alias("plant_tub_dirt", "stimulants:plant_tub_dirt")
 
 
 -- ********************************************************************************************************************
 -- Nodes
 -- ********************************************************************************************************************
 -- --------------------------------------------------------------------------------------------------------------------
--- Wild hemp for getting cannabis seeds
+-- Wild hemp for getting cannabis seeds (male or female)
 -- --------------------------------------------------------------------------------------------------------------------
 minetest.register_node("stimulants:wild_hemp", {
 	description = "Wild Hemp",
 	drawtype = "plantlike",
 	waving = 1,
-	visual_scale = 1.3,
+	visual_scale = 1,
 	tiles = {"stimulants_cannabis_8.png"},
 	inventory_image = "stimulants_cannabis_8.png",
 	wield_image = "stimulants_cannabis_8.png",
@@ -37,6 +41,72 @@ minetest.register_node("stimulants:wild_hemp", {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 	},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'stimulants:seed_cannabis'}, rarity = 2},
+			{items = {'stimulants:wild_hemp_male'}},
+		},
+	},
+})
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Wild male hemp. Can be used for decoration or as fuel
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_node("stimulants:wild_hemp_male", {
+	description = "Wild Hemp (male)",
+	drawtype = "plantlike",
+	waving = 1,
+	visual_scale = 1,
+	tiles = {"stimulants_cannabis_7.png"},
+	inventory_image = "stimulants_cannabis_7.png",
+	wield_image = "stimulants_cannabis_7.png",
+	paramtype = "light",
+	walkable = false,
+	buildable_to = true,
+	is_ground_content = true,
+	groups = {snappy = 3, flammable = 2, flora = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+})
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Plant tub
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_node("stimulants:plant_tub_unfired", {
+	description = "Unfired Plant Tub", 
+	tiles = {"stimulants_cannabis_plant_tub_top_empty_unfired.png",
+					"stimulants_cannabis_plant_tub_bottom_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
+})
+
+minetest.register_node("stimulants:plant_tub_empty", {
+	description = "Empty Plant Tub", 
+	tiles = {"stimulants_cannabis_plant_tub_top_empty.png",
+					"stimulants_cannabis_plant_tub_bottom.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
+})
+
+minetest.register_node("stimulants:plant_tub_dirt", {
+	description = "Plant Tub with Dirt", 
+	tiles = {"stimulants_cannabis_plant_tub_top_dirt.png",
+					"stimulants_cannabis_plant_tub_bottom.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
 })
 
 
@@ -65,6 +135,12 @@ farming.register_plant("stimulants:cannabis", {
 minetest.register_craft({
 	type = "fuel",
 	recipe = "stimulants:wild_hemp",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "stimulants:wild_hemp_male",
 	burntime = 1,
 })
 
@@ -165,6 +241,31 @@ minetest.register_craft({
 	output = "stimulants:hash_cookie 8",
 })
 
+-- --------------------------------------------------------------------------------------------------------------------
+-- Plant tub
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_craft({
+	output = 'stimulants:plant_tub_unfired',
+	recipe = {
+		{'', '', ''},
+		{'default:clay_lump', '', 'default:clay_lump'},
+		{'', 'default:clay_lump', ''},
+	}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	recipe = "stimulants:plant_tub_unfired",
+	cooktime = 60,
+	output = "stimulants:plant_tub_empty",
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'stimulants:plant_tub_dirt',
+	recipe = {'stimulants:plant_tub_empty', 'default:dirt'}
+})
+
 
 -- ********************************************************************************************************************
 -- Misc
@@ -211,13 +312,3 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 end)
 
--- --------------------------------------------------------------------------------------------------------------------
--- Getting seeds for farming
--- --------------------------------------------------------------------------------------------------------------------
-minetest.override_item("stimulants:wild_hemp", {drop = {
-	max_items = 1,
-	items = {
-		{items = {'stimulants:seed_cannabis'},rarity = 2},
-		{items = {'stimulants:wild_hemp'}},
-	}
-}}) 
