@@ -12,6 +12,9 @@ minetest.register_alias("smoking_paper", "stimulants:smoking_paper")
 minetest.register_alias("joint", "stimulants:joint")
 minetest.register_alias("hash_cookie_paste", "stimulants:hash_cookie_paste")
 minetest.register_alias("hash_cookie", "stimulants:hash_cookie")
+minetest.register_alias("plant_tub_unfired", "stimulants:plant_tub_unfired")
+minetest.register_alias("plant_tub_empty", "stimulants:plant_tub_empty")
+minetest.register_alias("plant_tub_dirt", "stimulants:plant_tub_dirt")
 
 
 -- ********************************************************************************************************************
@@ -69,6 +72,43 @@ minetest.register_node("stimulants:wild_hemp_male", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
 	},
 })
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Plant tub
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_node("stimulants:plant_tub_unfired", {
+	description = "Unfired Plant Tub", 
+	tiles = {"stimulants_cannabis_plant_tub_top_empty_unfired.png",
+					"stimulants_cannabis_plant_tub_bottom_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png",
+					"stimulants_cannabis_plant_tub_side_unfired.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
+})
+
+minetest.register_node("stimulants:plant_tub_empty", {
+	description = "Empty Plant Tub", 
+	tiles = {"stimulants_cannabis_plant_tub_top_empty.png",
+					"stimulants_cannabis_plant_tub_bottom.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
+})
+
+minetest.register_node("stimulants:plant_tub_dirt", {
+	description = "Plant Tub with Dirt", 
+	tiles = {"stimulants_cannabis_plant_tub_top_dirt.png",
+					"stimulants_cannabis_plant_tub_bottom.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png",
+					"stimulants_cannabis_plant_tub_side.png"
+			},
+	groups = {snappy = 3, cracky = 3, oddly_breakable_by_hand = 3},
+})
+
 
 -- ********************************************************************************************************************
 -- Plants
@@ -199,6 +239,31 @@ minetest.register_craft({
 	recipe = "stimulants:hash_cookie_paste",
 	cooktime = 20,
 	output = "stimulants:hash_cookie 8",
+})
+
+-- --------------------------------------------------------------------------------------------------------------------
+-- Plant tub
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_craft({
+	output = 'stimulants:plant_tub_unfired',
+	recipe = {
+		{'', '', ''},
+		{'default:clay_lump', '', 'default:clay_lump'},
+		{'', 'default:clay_lump', ''},
+	}
+})
+
+minetest.register_craft({
+	type = "cooking",
+	recipe = "stimulants:plant_tub_unfired",
+	cooktime = 60,
+	output = "stimulants:plant_tub_empty",
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = 'stimulants:plant_tub_dirt',
+	recipe = {'stimulants:plant_tub_empty', 'default:dirt'}
 })
 
 
