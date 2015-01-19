@@ -2,6 +2,7 @@
 -- Aliases
 -- ********************************************************************************************************************
 minetest.register_alias("wild_hemp", "stimulants:wild_hemp")
+minetest.register_alias("wild_hemp_male", "stimulants:wild_hemp_male")
 minetest.register_alias("cannabis", "stimulants:cannabis")
 minetest.register_alias("cannabis_seed", "stimulants:seed_cannabis")
 minetest.register_alias("marihuana", "stimulants:marihuana")
@@ -17,7 +18,7 @@ minetest.register_alias("hash_cookie", "stimulants:hash_cookie")
 -- Nodes
 -- ********************************************************************************************************************
 -- --------------------------------------------------------------------------------------------------------------------
--- Wild hemp for getting cannabis seeds
+-- Wild hemp for getting cannabis seeds (male or female)
 -- --------------------------------------------------------------------------------------------------------------------
 minetest.register_node("stimulants:wild_hemp", {
 	description = "Wild Hemp",
@@ -46,6 +47,28 @@ minetest.register_node("stimulants:wild_hemp", {
 	},
 })
 
+-- --------------------------------------------------------------------------------------------------------------------
+-- Wild male hemp. Can be used for decoration or as fuel
+-- --------------------------------------------------------------------------------------------------------------------
+minetest.register_node("stimulants:wild_hemp_male", {
+	description = "Wild Hemp (male)",
+	drawtype = "plantlike",
+	waving = 1,
+	visual_scale = 1,
+	tiles = {"stimulants_cannabis_7.png"},
+	inventory_image = "stimulants_cannabis_7.png",
+	wield_image = "stimulants_cannabis_7.png",
+	paramtype = "light",
+	walkable = false,
+	buildable_to = true,
+	is_ground_content = true,
+	groups = {snappy = 3, flammable = 2, flora = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	selection_box = {
+		type = "fixed",
+		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+})
 
 -- ********************************************************************************************************************
 -- Plants
@@ -72,6 +95,12 @@ farming.register_plant("stimulants:cannabis", {
 minetest.register_craft({
 	type = "fuel",
 	recipe = "stimulants:wild_hemp",
+	burntime = 1,
+})
+
+minetest.register_craft({
+	type = "fuel",
+	recipe = "stimulants:wild_hemp_male",
 	burntime = 1,
 })
 
