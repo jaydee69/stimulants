@@ -23,7 +23,7 @@ minetest.register_node("stimulants:wild_hemp", {
 	description = "Wild Hemp",
 	drawtype = "plantlike",
 	waving = 1,
-	visual_scale = 1.3,
+	visual_scale = 1,
 	tiles = {"stimulants_cannabis_8.png"},
 	inventory_image = "stimulants_cannabis_8.png",
 	wield_image = "stimulants_cannabis_8.png",
@@ -36,6 +36,13 @@ minetest.register_node("stimulants:wild_hemp", {
 	selection_box = {
 		type = "fixed",
 		fixed = {-0.5, -0.5, -0.5, 0.5, -5/16, 0.5},
+	},
+	drop = {
+		max_items = 1,
+		items = {
+			{items = {'stimulants:seed_cannabis'}, rarity = 2},
+			{items = {'stimulants:wild_hemp_male'}},
+		},
 	},
 })
 
@@ -211,13 +218,3 @@ minetest.register_on_generated(function(minp, maxp, seed)
 
 end)
 
--- --------------------------------------------------------------------------------------------------------------------
--- Getting seeds for farming
--- --------------------------------------------------------------------------------------------------------------------
-minetest.override_item("stimulants:wild_hemp", {drop = {
-	max_items = 1,
-	items = {
-		{items = {'stimulants:seed_cannabis'},rarity = 2},
-		{items = {'stimulants:wild_hemp'}},
-	}
-}}) 
