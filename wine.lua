@@ -118,13 +118,13 @@ minetest.register_craftitem("stimulants:wine_red_grapes", {
 -- --------------------------------------------------------------------------------------------------------------------
 minetest.register_abm({
 	nodenames = {"stimulants:wine_red_trunk"},
-	neighbors = {"default:dirt", "default:dirt_with_grass"},
+	neighbors = {"default:dirt", "default:dirt_with_grass", "stimulants:plant_tub_dirt"},
 	interval = 30,
 	chance = 20,
 	action = function(pos, node)
 		pos.y = pos.y - 1
 		local name = minetest.get_node(pos).name
-		if name == "default:dirt" or name == "default:dirt_with_grass" then 
+		if name == "default:dirt" or name == "default:dirt_with_grass" or name == "stimulants:plant_tub_dirt" then
 			pos.y = pos.y + 2
 			if minetest.get_node(pos).name == "air" then
 				minetest.set_node(pos, {name="stimulants:wine_red_vine"})
