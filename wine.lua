@@ -155,8 +155,75 @@ minetest.register_abm({
 -- --------------------------------------------------------------------------------------------------------------------
 -- Red wine
 -- --------------------------------------------------------------------------------------------------------------------
---[[
 minetest.register_on_generated(function(minp, maxp, seed)
 
+	local rand_number = seed * 123
+	local rand_x = seed * 456
+	local rand_z = seed * 789
+	local trial_total = 0
+	local surface_y = 0
+	local surface_found = false
+	local dirt_neighbour_found = false
+	local plant_set = false
+	local check_node_pos = {x = minp.x + math.fmod(rand_x, 80), y = maxp.y , z = minp.z + math.fmod(rand_z, 80)}	-- Start somewhere
+
+	for plant_no = 0, math.fmod(rand_number, 20), 1 do
+		for trial = 0, 10, 1 do
+
+			-- Calculating the next potential plant pos
+			trial_total = trial_total + 1
+			if math.fmod(trial_total, 4) ~= 0 then
+				check_node_pos.x = check_node_pos.x + 2
+			else
+				check_node_pos.x = check_node_pos.x - 6
+				check_node_pos.z = check_node_pos.z + 2
+			end
+
+			local check_node_name = minetest.get_node(check_node_pos).name
+			if check_node_name == "air" then
+
+				-- Searching the surface node
+				surface_found = false
+				surface_y = 0
+				for y = maxp.y, minp.y, -1 do
+						check_node_pos.y = y
+						check_node_name = minetest.get_node(check_node_pos).name
+						if check_node_name ~= "air" then
+							surface_y = y
+							surface_found = true
+							break -- Height loop
+						end
+				end
+
+				if surface_found then
+					-- Check growing conditions
+					if check_node_name == "default:dirt_with_grass" then
+
+						-- Looking for a higher neighbour node (step in the direct neighbourhood)
+						dirt_neighbour_found = false
+						for x_neighbour = -1, 1, 1 do
+							for z_neighbour = -1, 1, 1 do
+								neighbour_node_pos = check_node_pos
+								neighbour_node_pos.x = neighbour_node_pos.x + x_neighbour
+								neighbour_node_pos.y = neighbour_node_pos.y + 1
+								neighbour_node_pos.z = neighbour_node_pos.z + z_neighbour
+								if minetest.get_node(neighbour_node_pos).name == "default:dirt_with_grass" or minetest.get_node(neighbour_node_pos).name == "default:dirt" then
+									dirt_neighbour_found = true
+								end
+							end
+						end
+						if dirt_neighbour_found then
+							-- Set plant
+							check_node_pos.y = surface_y + 1
+							minetest.set_node(check_node_pos, {name = "stimulants:wine_red_trunk"})
+							check_node_pos.y = surface_y + 2
+							minetest.set_node(check_node_pos, {name = "stimulants:wine_red_vine_grapes"})
+							break -- Trial loop
+						end
+					end
+				end
+			end
+		end
+	end
+
 end)
---]]
