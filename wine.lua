@@ -14,7 +14,7 @@ minetest.register_alias("wine_red_grapes", "stimulants:wine_red_grapes")
 minetest.register_node("stimulants:wine_red_trunk", {
 	description = "Red Wine Trunk",
 	drawtype = "plantlike",
-	waving = 1,
+	waving = 0,
 	visual_scale = 1.0,
 	tiles = {"stimulants_wine_red_trunk.png"},
 	inventory_image = "stimulants_wine_red_trunk.png",
@@ -22,7 +22,7 @@ minetest.register_node("stimulants:wine_red_trunk", {
 	paramtype = "light",
 	walkable = true,
 	buildable_to = false,
-	is_ground_content = true,
+	is_ground_content = false,
 	groups = {snappy = 3, flammable = 2, flora = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	selection_box = {
