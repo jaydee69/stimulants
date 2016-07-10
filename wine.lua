@@ -122,12 +122,12 @@ minetest.register_abm({
 	interval = 30,
 	chance = 20,
 	action = function(pos, node)
-		pos.y = pos.y - 1
-		local name = minetest.get_node(pos).name
+		local below_pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+		local above_pos = {x = pos.x, y = pos.y + 1, z = pos.z}
+		local name = minetest.get_node(below_pos).name
 		if name == "default:dirt" or name == "default:dirt_with_grass" or name == "stimulants:plant_tub_dirt" then
-			pos.y = pos.y + 2
-			if minetest.get_node(pos).name == "air" then
-				minetest.set_node(pos, {name="stimulants:wine_red_vine"})
+			if minetest.get_node(above_pos).name == "air" then
+				minetest.set_node(above_pos, {name="stimulants:wine_red_vine"})
 			end
 		end
 	end,
@@ -139,10 +139,9 @@ minetest.register_abm({
 	interval = 30,
 	chance = 20,
 	action = function(pos, node)
-		pos.y = pos.y - 1
-		local name = minetest.get_node(pos).name
+		local below_pos = {x = pos.x, y = pos.y - 1, z = pos.z}
+		local name = minetest.get_node(below_pos).name
 		if name == "stimulants:wine_red_trunk" then 
-			pos.y = pos.y + 1
 			minetest.set_node(pos, {name="stimulants:wine_red_vine_grapes"})
 		end
 	end,
