@@ -6,6 +6,7 @@ which might be unhealthy in real life. So please, take it with humor!
 
 Available stuff:
   - Cannabis and its products
+  - Vines and its products
 
 
 License:
